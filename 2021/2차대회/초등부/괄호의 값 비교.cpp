@@ -17,7 +17,7 @@ typedef struct MyData{
 		cnt = 0;
 	}
 
-	void calc() {
+	void calc() {                  // aSum = (1 << 300000) + (1 << 2000) 형태로 오버플로우를 피하기 위해 지수만 카운트
 		for(int i=0; i<len; ++i) {
 			if(str[i] == '(') cnt++;
 			else {
@@ -38,19 +38,19 @@ typedef struct MyData{
 MyData a, b;
 
 void solve() {
-	for(int i=MAX_LEN-1; i>=0; i--) {
-		if(!a.pCnt[i] && b.pCnt[i]) {
+	for(int i=MAX_LEN-1; i>=0; i--) {   // MSB -> LSB
+		if(!a.pCnt[i] && b.pCnt[i]) {     // a's 2^i bit == 0 and b's 2^i bit == 1
 			cout << '<' << '\n';
 			return;
 		}
 
-		if(a.pCnt[i] && !b.pCnt[i]) {
+		if(a.pCnt[i] && !b.pCnt[i]) {     // a's 2^i bit == 1 and b's 2^i bit == 0
 			cout << '>'  << '\n';
 			return;
 		}
 	}
 
-	cout << '=' << '\n';
+	cout << '=' << '\n';                // a and b are the same
 }
 
 int main()
